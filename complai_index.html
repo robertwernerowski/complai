@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COMPLAI — Protección legal para autónomos en España</title>
+  <meta name="description" content="¿Eres un falso autónomo? ¿Tu empresa está en riesgo de inspección? COMPLAI analiza tu situación contra los criterios reales de la Inspección de Trabajo española.">
+  <meta name="keywords" content="falso autónomo, inspección trabajo España, derechos autónomo, COMPLAI">
+  <meta property="og:title" content="COMPLAI — Protección legal para autónomos">
+  <meta property="og:description" content="El conocimiento legal no debería ser un privilegio. COMPLAI te ayuda a entender tus derechos y protegerte ante una inspección.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --blue: #185FA5;
+      --blue-light: #E6F1FB;
+      --blue-mid: #85B7EB;
+      --blue-dark: #0C447C;
+      --red: #E24B4A;
+      --red-light: #FCEBEB;
+      --red-mid: #F09595;
+      --red-dark: #791F1F;
+      --amber: #EF9F27;
+      --amber-light: #FAEEDA;
+      --amber-mid: #FAC775;
+      --amber-dark: #633806;
+      --green: #3B6D11;
+      --green-light: #EAF3DE;
+      --green-mid: #C0DD97;
+      --green-dark: #27500A;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-tertiary: #999;
+      --bg-primary: #fff;
+      --bg-secondary: #f7f7f5;
+      --border: rgba(0,0,0,0.12);
+      --border-strong: rgba(0,0,0,0.2);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --font: 'Inter', -apple-system, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f0f0ee;
+        --text-secondary: #aaa;
+        --text-tertiary: #666;
+        --bg-primary: #1e1e1c;
+        --bg-secondary: #2a2a28;
+        --border: rgba(255,255,255,0.1);
+        --border-strong: rgba(255,255,255,0.2);
+        --blue-light: #0a2a47;
+        --red-light: #3a1515;
+        --amber-light: #3a2a0a;
+        --green-light: #1a2e0a;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg-secondary); color: var(--text-primary); min-height: 100vh; }
+    .container { max-width: 680px; margin: 0 auto; padding: 2rem 1rem; }
+    .header { padding: 1.5rem 0 1rem; border-bottom: 0.5px solid var(--border); margin-bottom: 1.5rem; }
+    .logo { font-size: 24px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.5px; }
+    .logo span { color: var(--blue); }
+    .tagline { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+    .badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: var(--radius-md); font-weight: 500; }
+    .badge-b { background: var(--blue-light); color: var(--blue-dark); }
+    .badge-g { background: var(--green-light); color: var(--green-dark); }
+    .badge-r { background: var(--red-light); color: var(--red-dark); }
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+    @media (max-width: 480px) { .mode-grid { grid-template-columns: 1fr; } }
+    .mc { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; cursor: pointer; text-align: left; border-left-width: 3px; transition: border-color .15s, box-shadow .15s; }
+    .mc:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .mc.worker { border-left-color: var(--red); }
+    .mc.company { border-left-color: var(--blue); }
+    .mc-icon { font-size: 22px; margin-bottom: 8px; }
+    .mc.worker .mc-icon { color: var(--red-dark); }
+    .mc.company .mc-icon { color: var(--blue-dark); }
+    .mc-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .mc-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .mc-tag { font-size: 11px; font-weight: 500; margin-top: 8px; display: inline-block; padding: 2px 8px; border-radius: var(--radius-md); }
+    .mc.worker .mc-tag { background: var(--red-light); color: var(--red-dark); }
+    .mc.company .mc-tag { background: var(--blue-light); color: var(--blue-dark); }
+    .quiz { display: none; }
+    .quiz.show { display: block; }
+    .pbar { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 1.5rem; }
+    .pfill { height: 4px; border-radius: 2px; transition: width .4s ease; }
+    .pf-r { background: var(--red); }
+    .pf-b { background: var(--blue); }
+    .step { display: none; }
+    .step.active { display: block; }
+    .slbl { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+    .stitle { font-size: 17px; font-weight: 500; color: var(--text-primary); margin-bottom: 6px; }
+    .sdesc { font-size: 13px; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+    .inote { font-size: 12px; background: var(--amber-light); border: 0.5px solid var(--amber-mid); border-radius: var(--radius-md); padding: 8px 12px; margin-bottom: 1rem; color: var(--amber-dark); line-height: 1.5; }
+    .opts { display: flex; flex-direction: column; gap: 8px; }
+    .opt { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 12px 14px; cursor: pointer; display: flex; align-items: flex-start; gap: 10px; transition: all .15s; }
+    .opt:hover { border-color: var(--border-strong); background: var(--bg-secondary); }
+    .opt.sr { border: 1.5px solid var(--red); background: var(--red-light); }
+    .opt.sb { border: 1.5px solid var(--blue); background: var(--blue-light); }
+    .ot { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .os { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+    .nav button { font-size: 13px; padding: 8px 18px; border-radius: var(--radius-md); cursor: pointer; }
+    .bbk { background: transparent; border: 0.5px solid var(--border-strong); color: var(--text-secondary); }
+    .bnr { background: var(--red); border: none; color: white; font-weight: 500; }
+    .bnr:hover { background: var(--red-dark); }
+    .bnr:disabled { background: var(--bg-secondary); color: var(--text-tertiary); cursor: not-allowed; }
+    .bnb { background: var(--blue); border: none; color: white; font-weight: 500; }
+    .bnb:hover { background: var(--blue-dark); }
+    .bnb:disabled { background: var(--bg-secondary); color: var(--text-tertiary); cursor: not-allowed; }
+    .sctr { font-size: 12px; color: var(--text-secondary); }
+    .obox { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: .75rem; }
+    .obox textarea { width: 100%; border: none; background: transparent; font-size: 13px; color: var(--text-primary); font-family: var(--font); line-height: 1.6; resize: vertical; min-height: 90px; outline: none; }
+    .obox textarea::placeholder { color: var(--text-tertiary); }
+    .cc { font-size: 11px; color: var(--text-tertiary); text-align: right; margin-top: 4px; }
+    .aib { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1rem 1.25rem; border: 0.5px solid var(--border); display: none; margin-bottom: .75rem; }
+    .aib.show { display: block; }
+    .aihdr { font-size: 11px; font-weight: 500; color: var(--blue); background: var(--blue-light); display: inline-block; padding: 2px 8px; border-radius: var(--radius-md); margin-bottom: 8px; }
+    .aitxt { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+    .anabtn { width: 100%; padding: 10px; border-radius: var(--radius-md); border: 0.5px solid var(--blue-mid); background: var(--blue-light); color: var(--blue); font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: .5rem; display: none; font-family: var(--font); }
+    .sklnk { font-size: 12px; color: var(--text-tertiary); text-align: center; cursor: pointer; display: block; }
+    .sklnk:hover { color: var(--text-secondary); }
+    .result { display: none; }
+    .result.show { display: block; }
+    .scard { border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.5rem; margin-bottom: 1.5rem; background: var(--bg-primary); }
+    .shdr { display: flex; align-items: center; gap: 14px; margin-bottom: 1rem; }
+    .scirc { width: 68px; height: 68px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .slb { font-size: 12px; color: var(--text-secondary); }
+    .svv { font-size: 17px; font-weight: 500; color: var(--text-primary); margin-top: 2px; }
+    .sss { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+    .mtr { height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--green), var(--amber), var(--red)); position: relative; margin: 1rem 0 0; }
+    .mth { width: 16px; height: 16px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--border-strong); position: absolute; top: -4px; transition: left .6s ease; }
+    .mlbl { display: flex; justify-content: space-between; margin-top: 5px; font-size: 11px; color: var(--text-secondary); }
+    .finds { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .fi { border-radius: var(--radius-md); padding: 11px 13px; border: 0.5px solid; display: flex; gap: 9px; align-items: flex-start; }
+    .fi.red { background: var(--red-light); border-color: var(--red-mid); }
+    .fi.amber { background: var(--amber-light); border-color: var(--amber-mid); }
+    .fi.green { background: var(--green-light); border-color: var(--green-mid); }
+    .fic { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .fi.red .fic { color: var(--red-dark); }
+    .fi.amber .fic { color: var(--amber-dark); }
+    .fi.green .fic { color: var(--green-dark); }
+    .ft { font-size: 13px; font-weight: 500; }
+    .fi.red .ft { color: var(--red-dark); }
+    .fi.amber .ft { color: var(--amber-dark); }
+    .fi.green .ft { color: var(--green-dark); }
+    .fd { font-size: 12px; margin-top: 3px; line-height: 1.5; }
+    .fi.red .fd { color: var(--red-dark); }
+    .fi.amber .fd { color: var(--amber-dark); }
+    .fi.green .fd { color: var(--green-dark); }
+    .sect { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px; }
+    .acts { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1.5rem; }
+    .act { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 9px 13px; font-size: 13px; color: var(--text-primary); line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
+    .rbox { background: var(--green-light); border: 0.5px solid var(--green-mid); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+    .rboxt { font-size: 13px; font-weight: 500; color: var(--green-dark); margin-bottom: 8px; }
+    .ri { font-size: 12px; color: var(--green); display: flex; gap: 8px; align-items: flex-start; margin-bottom: 5px; line-height: 1.5; }
+    .airsec { background: var(--blue-light); border: 0.5px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+    .airsect { font-size: 13px; font-weight: 500; color: var(--blue-dark); margin-bottom: 6px; }
+    .airstxt { font-size: 13px; color: var(--blue); line-height: 1.7; }
+    .askbtn { width: 100%; padding: 11px; border-radius: var(--radius-md); border: none; color: white; font-size: 13px; font-weight: 500; cursor: pointer; margin-top: .5rem; font-family: var(--font); }
+    .askbtn.r { background: var(--red); }
+    .askbtn.r:hover { background: var(--red-dark); }
+    .askbtn.b { background: var(--blue); }
+    .askbtn.b:hover { background: var(--blue-dark); }
+    .rstbtn { width: 100%; padding: 11px; border-radius: var(--radius-md); border: 0.5px solid var(--border-strong); background: transparent; color: var(--text-secondary); font-size: 13px; cursor: pointer; margin-top: .75rem; font-family: var(--font); }
+    .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); text-align: center; font-size: 12px; color: var(--text-tertiary); }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .dots { display: inline-flex; gap: 3px; }
+    .dots span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: pu 1.2s ease-in-out infinite; }
+    .dots span:nth-child(2) { animation-delay: .2s; }
+    .dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes pu { 0%,80%,100%{opacity:.3}40%{opacity:1} }
+    .intro-text { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="logo">COMPL<span>AI</span></div>
+      <div class="tagline">Protección legal para autónomos · Basado en jurisprudencia y Plan ITSS 2025-2027</div>
+      <div class="badges">
+        <span class="badge badge-b">Plan ITSS 2025-2027</span>
+        <span class="badge badge-g">Tribunal Supremo</span>
+        <span class="badge badge-b">Directiva UE 2024/2831</span>
+        <span class="badge badge-r">+30.000 casos detectados en 2024</span>
+      </div>
+    </div>
+
+    <div id="mscreen">
+      <p class="intro-text">En 2024 se detectaron más de 30.000 falsos autónomos en España. El Plan Estratégico de la Inspección 2025-2027 refuerza el cruce automático de datos entre la AEAT y la Seguridad Social. COMPLAI te ayuda desde los dos lados.</p>
+      <div class="mode-grid">
+        <div class="mc worker" onclick="startM('w')">
+          <div class="mc-icon"><i class="ti ti-user" aria-hidden="true"></i></div>
+          <div class="mc-title">La empresa me trata como empleado</div>
+          <div class="mc-desc">Creo que soy un falso autónomo. Quiero saber si tengo razón y qué derechos puedo reclamar.</div>
+          <span class="mc-tag">Detecta tu situación</span>
+        </div>
+        <div class="mc company" onclick="startM('c')">
+          <div class="mc-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+          <div class="mc-title">Trabajo con autónomos y quiero protegerme</div>
+          <div class="mc-desc">Quiero saber si mi empresa está en riesgo de inspección y cómo reducirlo.</div>
+          <span class="mc-tag">Prevención de inspección</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Worker quiz -->
+    <div class="quiz" id="qw">
+      <div class="pbar"><div class="pfill pf-r" id="pw" style="width:0%"></div></div>
+
+      <div class="step active" id="ws0">
+        <div class="slbl">Señal 1 de 8</div>
+        <div class="stitle">¿Facturas casi todo tu dinero a una sola empresa?</div>
+        <div class="sdesc">Es la señal más potente. La Seguridad Social cruza automáticamente los datos de facturación para detectar autónomos con un único cliente habitual.</div>
+        <div class="inote"><i class="ti ti-eye" aria-hidden="true"></i> Inspector: cruza tus facturas con la AEAT para detectar dependencia económica total.</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(0,0,25,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, casi todo mi dinero viene de una empresa</div><div class="os">Señal fuerte de falso autónomo</div></div></div>
+          <div class="opt" onclick="ws(0,1,10,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Un cliente representa más del 75% de mis ingresos</div><div class="os">Señal moderada — posible TRADE no declarado</div></div></div>
+          <div class="opt" onclick="ws(0,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Tengo varios clientes con ingresos distribuidos</div><div class="os">Sin señal de dependencia económica</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws1">
+        <div class="slbl">Señal 2 de 8</div>
+        <div class="stitle">¿La empresa te da órdenes o te supervisa directamente?</div>
+        <div class="sdesc">La dependencia — estar bajo el círculo rector del empresario — es el criterio central del Estatuto de los Trabajadores para definir una relación laboral.</div>
+        <div class="inote"><i class="ti ti-eye" aria-hidden="true"></i> Inspector: busca emails con instrucciones directas, mensajes de supervisores, asistencia a reuniones de equipo.</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(1,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, recibo instrucciones directas y me supervisan</div><div class="os">Dependencia clara — señal fuerte</div></div></div>
+          <div class="opt" onclick="ws(1,1,8,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Hay cierta supervisión pero también tengo autonomía</div><div class="os">Situación mixta</div></div></div>
+          <div class="opt" onclick="ws(1,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Organizo mi trabajo de forma completamente independiente</div><div class="os">Sin señal de dependencia</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws2">
+        <div class="slbl">Señal 3 de 8</div>
+        <div class="stitle">¿Tienes un horario fijo que la empresa define?</div>
+        <div class="sdesc">Si actúas dentro del ámbito de dirección y organización de otra empresa, ya estamos hablando de una relación laboral — criterio del inspector.</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(2,0,15,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, tengo horario fijo que la empresa define</div><div class="os">Señal clara de laboralidad</div></div></div>
+          <div class="opt" onclick="ws(2,1,6,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Tengo franjas horarias sugeridas pero con flexibilidad</div><div class="os">Señal moderada</div></div></div>
+          <div class="opt" onclick="ws(2,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Decido completamente mis propios horarios</div><div class="os">Sin señal en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws3">
+        <div class="slbl">Señal 4 de 8</div>
+        <div class="stitle">¿Usas ordenador, móvil, plataformas o email corporativo de la empresa?</div>
+        <div class="sdesc">Los inspectores advierten: "tener un móvil de empresa, material con el logo del despacho o facturar a través de la empresa son indicios que levantan sospechas."</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(3,0,15,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, uso medios o herramientas de la empresa</div><div class="os">Ajenidad en los medios — señal fuerte</div></div></div>
+          <div class="opt" onclick="ws(3,1,6,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Uso algunos medios de la empresa pero también los míos</div><div class="os">Señal moderada</div></div></div>
+          <div class="opt" onclick="ws(3,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Uso exclusivamente mis propios medios</div><div class="os">Sin señal en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws4">
+        <div class="slbl">Señal 5 de 8</div>
+        <div class="stitle">¿Cobras siempre la misma cantidad fija cada mes?</div>
+        <div class="sdesc">La Seguridad Social inicia investigaciones automáticas cuando detecta que alguien "factura cada mes la misma cantidad a una sola empresa, sin variaciones."</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(4,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, mis facturas son siempre prácticamente iguales</div><div class="os">Equivale a nómina encubierta — señal muy fuerte</div></div></div>
+          <div class="opt" onclick="ws(4,1,7,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Varía algo pero es básicamente siempre igual</div><div class="os">Señal moderada</div></div></div>
+          <div class="opt" onclick="ws(4,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Mis facturas varían según el trabajo real entregado</div><div class="os">Sin señal — facturación variable correcta</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws5">
+        <div class="slbl">Señal 6 de 8</div>
+        <div class="stitle">¿La empresa te paga aunque no haya trabajo o el cliente no pague?</div>
+        <div class="sdesc">El inspector analiza si "el profesional asume o no el riesgo y ventura de las operaciones." Si la empresa te garantiza ingresos fijos, actúas como empleado.</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(5,0,15,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, cobro aunque no haya trabajo o el cliente no pague</div><div class="os">Sin riesgo económico propio — señal clara</div></div></div>
+          <div class="opt" onclick="ws(5,1,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">No, si no hay trabajo no cobro y asumo los riesgos</div><div class="os">Riesgo económico propio — indicador de autonomía</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws6">
+        <div class="slbl">Señal 7 de 8</div>
+        <div class="stitle">¿La empresa te impuso darte de alta como autónomo en lugar de contratarte?</div>
+        <div class="sdesc">El falso autónomo ocurre cuando una empresa "obliga a un trabajador a darse de alta en el RETA y emitir facturas, cuando en realidad actúa como empleado." Ahorra a la empresa un 30% en SS.</div>
+        <div class="opts">
+          <div class="opt" onclick="ws(6,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, la condición era trabajar como autónomo</div><div class="os">Señal directa de fraude laboral</div></div></div>
+          <div class="opt" onclick="ws(6,1,8,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">No exactamente pero sentí que no había otra opción</div><div class="os">Posible presión implícita</div></div></div>
+          <div class="opt" onclick="ws(6,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Fue mi propia decisión trabajar como autónomo</div><div class="os">Sin señal en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="ws7">
+        <div class="slbl">Análisis IA — Señal 8 de 8</div>
+        <div class="stitle">¿Hay algo en tu situación que te parece sospechoso?</div>
+        <div class="sdesc">Describe con tus palabras cómo funciona tu relación con la empresa. La IA lo analizará contra los criterios reales de la Inspección de Trabajo española de 2025.</div>
+        <div class="obox"><textarea id="wtxt" placeholder="Ejemplo: me pagan 1.800€ fijos cada mes, tengo que estar disponible de 9 a 18h, asisto a las reuniones de equipo y uso el ordenador que me dieron..." oninput="wcc();wchk()" maxlength="800"></textarea><div class="cc"><span id="wcn">0</span>/800</div></div>
+        <div class="aib" id="wai"><div class="aihdr">Análisis IA</div><div id="waic"></div></div>
+        <button class="anabtn" id="waib" onclick="wanal()"><i class="ti ti-sparkles" aria-hidden="true"></i> Analizar con IA</button>
+        <span class="sklnk" onclick="wskip()">Saltar y ver resultado →</span>
+      </div>
+
+      <div class="nav">
+        <button class="bbk" id="wbk" onclick="wgo(-1)" style="visibility:hidden"><i class="ti ti-arrow-left" aria-hidden="true"></i> Anterior</button>
+        <span class="sctr" id="wctr">1 de 8</span>
+        <button class="bnr" id="wnxt" onclick="wgo(1)" disabled>Siguiente <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Company quiz -->
+    <div class="quiz" id="qc">
+      <div class="pbar"><div class="pfill pf-b" id="pc" style="width:0%"></div></div>
+
+      <div class="step active" id="cs0">
+        <div class="slbl">Criterio 1 de 7</div>
+        <div class="stitle">¿Algún autónomo trabaja exclusivamente para ti?</div>
+        <div class="sdesc">La Inspección detecta falsos autónomos como "personas que solo prestan servicios a una única empresa." Es el primer filtro automático del cruce de datos AEAT-Seguridad Social.</div>
+        <div class="inote"><i class="ti ti-eye" aria-hidden="true"></i> Plan ITSS 2025-2027: refuerza cruce masivo de datos AEAT-SS para detectar estos casos sistemáticamente.</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(0,0,25,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, uno o varios autónomos solo trabajan para mí</div><div class="os">Riesgo alto — detectable en cruce automático de datos</div></div></div>
+          <div class="opt" onclick="cs(0,1,10,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Uno genera más del 75% de sus ingresos conmigo</div><div class="os">Riesgo moderado — posible TRADE no declarado</div></div></div>
+          <div class="opt" onclick="cs(0,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Todos tienen múltiples clientes y puedo acreditarlo</div><div class="os">Sin riesgo en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs1">
+        <div class="slbl">Criterio 2 de 7</div>
+        <div class="stitle">¿Organizas tú sus horarios o les das instrucciones directas?</div>
+        <div class="sdesc">Si la empresa fija horarios, da instrucciones y supervisa el resultado, existe dependencia organizativa — el criterio más usado por los inspectores.</div>
+        <div class="inote"><i class="ti ti-eye" aria-hidden="true"></i> Inspector: entrevistará a tus autónomos preguntando quién fija sus horarios y cómo reciben instrucciones.</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(1,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, fijo sus horarios y les doy instrucciones</div><div class="os">Riesgo alto — dependencia organizativa clara</div></div></div>
+          <div class="opt" onclick="cs(1,1,8,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Hay coordinación pero ellos organizan su propio trabajo</div><div class="os">Riesgo moderado — documenta la autonomía</div></div></div>
+          <div class="opt" onclick="cs(1,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Deciden completamente cómo y cuándo hacer su trabajo</div><div class="os">Sin riesgo en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs2">
+        <div class="slbl">Criterio 3 de 7</div>
+        <div class="stitle">¿Les proporcionas ordenador, móvil, plataformas o email corporativo?</div>
+        <div class="sdesc">Según los inspectores: "tener un móvil de empresa, material con el logo del despacho o acceso a sistemas son indicios que levantan sospechas."</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(2,0,15,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, les doy herramientas, email corporativo o accesos</div><div class="os">Riesgo alto — ajenidad en los medios</div></div></div>
+          <div class="opt" onclick="cs(2,1,8,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Usan algunos medios míos pero también los propios</div><div class="os">Riesgo moderado — documenta la justificación</div></div></div>
+          <div class="opt" onclick="cs(2,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Usan exclusivamente sus propios medios</div><div class="os">Sin riesgo en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs3">
+        <div class="slbl">Criterio 4 de 7</div>
+        <div class="stitle">¿Tus autónomos te facturan siempre la misma cantidad cada mes?</div>
+        <div class="sdesc">La Seguridad Social puede iniciar investigación automática cuando detecta que alguien "factura cada mes la misma cantidad a una sola empresa, sin variaciones."</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(3,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, sus facturas son prácticamente iguales cada mes</div><div class="os">Riesgo muy alto — nómina encubierta detectada automáticamente</div></div></div>
+          <div class="opt" onclick="cs(3,1,7,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Varían algo pero son básicamente iguales</div><div class="os">Riesgo moderado</div></div></div>
+          <div class="opt" onclick="cs(3,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sus facturas varían según el trabajo entregado</div><div class="os">Sin riesgo — facturación variable correcta</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs4">
+        <div class="slbl">Criterio 5 de 7</div>
+        <div class="stitle">¿Pueden aceptar o rechazar trabajo libremente y está documentado?</div>
+        <div class="sdesc">La libertad real de rechazar encargos es uno de los pocos indicadores favorables a la autonomía reconocidos por el Tribunal Supremo. Debe estar documentada.</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(4,0,20,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">No, tienen obligación de aceptar</div><div class="os">Riesgo alto — dependencia manifiesta</div></div></div>
+          <div class="opt" onclick="cs(4,1,8,'amber')"><i class="ti ti-alert-triangle fic" style="color:#633806;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Pueden rechazar pero no tenemos registros escritos</div><div class="os">Riesgo moderado — falta documentación</div></div></div>
+          <div class="opt" onclick="cs(4,2,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Sí, y tenemos comunicaciones escritas que lo demuestran</div><div class="os">Sin riesgo — autonomía documentada</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs5">
+        <div class="slbl">Criterio 6 de 7</div>
+        <div class="stitle">¿Los clientes finales contratan con tu empresa o con el autónomo directamente?</div>
+        <div class="sdesc">La ajenidad en el mercado significa que es tu marca la que atrae clientes. Si el autónomo es invisible para el cliente final, es un indicador de laboralidad.</div>
+        <div class="opts">
+          <div class="opt" onclick="cs(5,0,15,'red')"><i class="ti ti-alert-circle fic" style="color:#791F1F;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">Con mi empresa — el autónomo es invisible para el cliente</div><div class="os">Riesgo alto — ajenidad en el mercado</div></div></div>
+          <div class="opt" onclick="cs(5,1,0,'green')"><i class="ti ti-check fic" style="color:#27500A;font-size:16px;flex-shrink:0;margin-top:2px" aria-hidden="true"></i><div><div class="ot">El autónomo tiene identidad propia ante el cliente</div><div class="os">Reduce el riesgo en este criterio</div></div></div>
+        </div>
+      </div>
+
+      <div class="step" id="cs6">
+        <div class="slbl">Análisis IA — Criterio 7 de 7</div>
+        <div class="stitle">¿Hay algo en tu relación con los autónomos que te genera dudas?</div>
+        <div class="sdesc">Describe cualquier aspecto que no tengas claro. La IA lo analizará contra los criterios reales del Plan ITSS 2025-2027.</div>
+        <div class="obox"><textarea id="ctxt" placeholder="Ejemplo: les pedimos que usen nuestro sistema de gestión, asisten a reuniones mensuales de equipo, cambiamos el proceso de validación de facturas..." oninput="ccc();cchk()" maxlength="800"></textarea><div class="cc"><span id="ccn">0</span>/800</div></div>
+        <div class="aib" id="cai"><div class="aihdr">Análisis IA</div><div id="caic"></div></div>
+        <button class="anabtn" id="caib" onclick="canal()"><i class="ti ti-sparkles" aria-hidden="true"></i> Analizar con IA</button>
+        <span class="sklnk" onclick="cskip()">Saltar y ver resultado →</span>
+      </div>
+
+      <div class="nav">
+        <button class="bbk" id="cbk" onclick="cgo(-1)" style="visibility:hidden"><i class="ti ti-arrow-left" aria-hidden="true"></i> Anterior</button>
+        <span class="sctr" id="cctr">1 de 7</span>
+        <button class="bnb" id="cnxt" onclick="cgo(1)" disabled>Siguiente <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result" id="res">
+      <div class="scard">
+        <div class="shdr">
+          <div class="scirc" id="scirc"></div>
+          <div><div class="slb" id="slb"></div><div class="svv" id="svv"></div><div class="sss" id="sss"></div></div>
+        </div>
+        <div class="mtr"><div class="mth" id="mth"></div></div>
+        <div class="mlbl"><span>Sin riesgo</span><span>Moderado</span><span>Alto</span></div>
+      </div>
+      <div id="rsec"></div>
+      <div id="aisec"></div>
+      <div class="sect">Lo que detectaría un inspector</div>
+      <div class="finds" id="finds"></div>
+      <div class="sect">Acciones recomendadas</div>
+      <div class="acts" id="acts"></div>
+      <button class="askbtn" id="askb">Consultar con un abogado laboralista →</button>
+      <button class="rstbtn" onclick="rst()"><i class="ti ti-refresh" aria-hidden="true"></i> Hacer el análisis de nuevo</button>
+    </div>
+
+    <div class="footer">
+      <p>COMPLAI · El conocimiento legal no debería ser un privilegio</p>
+      <p style="margin-top:6px">Basado en jurisprudencia real · Plan ITSS 2025-2027 · Directiva UE 2024/2831</p>
+      <p style="margin-top:6px">Construido por <a href="https://linkedin.com/in/robert-wernerowski-20104636" target="_blank">Robert Wernerowski</a> · <a href="https://github.com/TU-USUARIO/complai" target="_blank">GitHub</a></p>
+      <p style="margin-top:8px;font-size:11px">COMPLAI proporciona información general. No sustituye el asesoramiento legal personalizado.</p>
+    </div>
+
+  </div>
+
+  <script src="src/data.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
