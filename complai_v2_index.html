@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COMPLAI — Protección legal para autónomos en España</title>
+  <meta name="description" content="¿Eres un falso autónomo? ¿Tu empresa está en riesgo de inspección? COMPLAI analiza tu situación, calcula tu cese de actividad, analiza tu contrato y calcula tu IRPF.">
+  <meta property="og:title" content="COMPLAI — Protección legal para autónomos">
+  <meta property="og:description" content="El conocimiento legal no debería ser un privilegio. COMPLAI te ayuda a entender tus derechos y protegerte ante una inspección.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <div>
+        <div class="logo">COMPL<span>AI</span></div>
+        <div class="tagline">Protección legal para autónomos · España 2025-2026</div>
+        <div class="badges">
+          <span class="badge badge-b">Plan ITSS 2025-2027</span>
+          <span class="badge badge-g">Tribunal Supremo</span>
+          <span class="badge badge-b">Directiva UE 2024/2831</span>
+          <span class="badge badge-r">+30.000 casos en 2024</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN NAV -->
+    <nav class="main-nav">
+      <button class="nav-btn active" onclick="showSection('inspector')">
+        <i class="ti ti-shield-check" aria-hidden="true"></i>
+        <span>¿Soy falso autónomo?</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('tools')">
+        <i class="ti ti-tools" aria-hidden="true"></i>
+        <span>Herramientas</span>
+      </button>
+    </nav>
+
+    <!-- INSPECTOR SECTION -->
+    <section id="section-inspector" class="section show">
+      <div id="mscreen">
+        <p class="intro-text">En 2024 se detectaron más de 30.000 falsos autónomos en España. El Plan ITSS 2025-2027 refuerza el cruce automático de datos AEAT-Seguridad Social. COMPLAI te ayuda desde los dos lados.</p>
+        <div class="mode-grid">
+          <div class="mc worker" onclick="startM('w')">
+            <div class="mc-icon"><i class="ti ti-user" aria-hidden="true"></i></div>
+            <div class="mc-title">La empresa me trata como empleado</div>
+            <div class="mc-desc">Creo que soy un falso autónomo. Quiero saber si tengo razón y qué derechos puedo reclamar.</div>
+            <span class="mc-tag worker-tag">Detecta tu situación</span>
+          </div>
+          <div class="mc company" onclick="startM('c')">
+            <div class="mc-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+            <div class="mc-title">Trabajo con autónomos y quiero protegerme</div>
+            <div class="mc-desc">Quiero saber si mi empresa está en riesgo de inspección y cómo reducirlo.</div>
+            <span class="mc-tag company-tag">Prevención de inspección</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Worker quiz -->
+      <div class="quiz" id="qw"></div>
+
+      <!-- Company quiz -->
+      <div class="quiz" id="qc"></div>
+
+      <!-- Result -->
+      <div class="result" id="res">
+        <div class="scard">
+          <div class="shdr">
+            <div class="scirc" id="scirc"></div>
+            <div>
+              <div class="slb" id="slb"></div>
+              <div class="svv" id="svv"></div>
+              <div class="sss" id="sss"></div>
+            </div>
+          </div>
+          <div class="mtr"><div class="mth" id="mth"></div></div>
+          <div class="mlbl"><span>Sin riesgo</span><span>Moderado</span><span>Alto</span></div>
+        </div>
+        <div id="rsec"></div>
+        <div id="aisec"></div>
+        <div class="sect">Lo que detectaría un inspector</div>
+        <div class="finds" id="finds"></div>
+        <div class="sect">Acciones recomendadas</div>
+        <div class="acts" id="acts"></div>
+        <button class="askbtn" id="askb">Explorar herramientas de COMPLAI →</button>
+        <button class="rstbtn" onclick="rst()"><i class="ti ti-refresh" aria-hidden="true"></i> Hacer el análisis de nuevo</button>
+      </div>
+    </section>
+
+    <!-- TOOLS SECTION -->
+    <section id="section-tools" class="section">
+      <div class="tabs">
+        <div class="tab active" onclick="showTab('paro', this)"><i class="ti ti-umbrella" aria-hidden="true"></i> Cese de actividad</div>
+        <div class="tab" onclick="showTab('contract', this)"><i class="ti ti-file-text" aria-hidden="true"></i> Analizador de contrato</div>
+        <div class="tab" onclick="showTab('tax', this)"><i class="ti ti-receipt-tax" aria-hidden="true"></i> IRPF + Renta</div>
+      </div>
+
+      <!-- PARO -->
+      <div class="tool-panel show" id="panel-paro">
+        <div class="card">
+          <div class="sect">¿Cuánto cobrarías si pararas hoy?</div>
+          <div class="field-group">
+            <div class="field">
+              <label class="lbl">Base de cotización mensual (€)</label>
+              <input class="inp" type="number" id="p-base" placeholder="1.200">
+              <div class="hint">Encuéntralo en tu recibo de la Seguridad Social</div>
+            </div>
+            <div class="field">
+              <label class="lbl">Meses cotizados en los últimos 48 meses</label>
+              <select class="inp" id="p-months">
+                <option value="0">Menos de 12 — sin derecho</option>
+                <option value="12">12-17 meses → 4 meses prestación</option>
+                <option value="18">18-23 meses → 6 meses</option>
+                <option value="24">24-29 meses → 8 meses</option>
+                <option value="30">30-35 meses → 10 meses</option>
+                <option value="36">36-41 meses → 12 meses</option>
+                <option value="42">42-47 meses → 14 meses</option>
+                <option value="48">48 o más → 16 meses (máximo)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label class="lbl">¿Tienes hijos a cargo?</label>
+              <select class="inp" id="p-hijos">
+                <option value="0">Sin hijos</option>
+                <option value="1">1 hijo</option>
+                <option value="2">2 o más hijos</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="lbl">Tipo de cese</label>
+              <select class="inp" id="p-tipo">
+                <option value="total">Cese total (70% base)</option>
+                <option value="parcial">Cese parcial (50% base)</option>
+              </select>
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcParo()"><i class="ti ti-calculator" aria-hidden="true"></i> Calcular mi prestación</button>
+        </div>
+        <div class="result-box" id="paro-result">
+          <div class="result-main">
+            <div class="result-circ"><div class="big" id="paro-amount">—</div><div style="font-size:10px;margin-top:2px">€/mes</div></div>
+            <div><div class="result-title" id="paro-title">Prestación estimada</div><div class="result-sub">Cese de actividad autónomo 2025-2026</div></div>
+          </div>
+          <div class="rrows">
+            <div class="rrow"><span class="rl">Base reguladora</span><span class="rv blue" id="pr-base">—</span></div>
+            <div class="rrow"><span class="rl">Porcentaje aplicable</span><span class="rv" id="pr-pct">—</span></div>
+            <div class="rrow"><span class="rl">Prestación bruta</span><span class="rv" id="pr-bruta">—</span></div>
+            <div class="divider"></div>
+            <div class="rrow"><span class="rl">Límite mínimo legal</span><span class="rv" id="pr-min">—</span></div>
+            <div class="rrow"><span class="rl">Límite máximo legal</span><span class="rv" id="pr-max">—</span></div>
+            <div class="divider"></div>
+            <div class="rrow"><span class="rl"><strong>Prestación final estimada</strong></span><span class="rv green" id="pr-final">—</span></div>
+            <div class="rrow"><span class="rl">Duración máxima</span><span class="rv blue" id="pr-dur">—</span></div>
+            <div class="rrow"><span class="rl">Total máximo a cobrar</span><span class="rv blue" id="pr-total">—</span></div>
+          </div>
+          <div id="paro-warn"></div>
+          <div class="warn-box" style="margin-top:.75rem">
+            <i class="ti ti-alert-triangle" aria-hidden="true"></i> <strong>Importante:</strong> El cese de actividad NO es automático. Debes justificar una causa legal y solicitarlo a tu mutua en los 30 días siguientes al cese. En 2025 se rechazaron más del 42% de solicitudes.
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTRACT -->
+      <div class="tool-panel" id="panel-contract">
+        <div class="card">
+          <div class="sect">Analiza tu contrato o acuerdo de servicios</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6">Pega aquí el texto de tu contrato — en español o en inglés. La IA identificará cláusulas que crean riesgo de ser considerado falso autónomo y sugerirá cómo mejorarlas.</p>
+          <textarea class="textarea-box" id="contract-txt" placeholder="Pega aquí el texto de tu contrato de servicios...
+
+Ejemplo: El profesional prestará sus servicios de lunes a viernes en horario de 9:00 a 18:00h, siguiendo las instrucciones del coordinador del proyecto..."></textarea>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <span style="font-size:11px;color:var(--text-tertiary)">Español o inglés · Cuanto más detallado, mejor análisis</span>
+            <button class="calc-btn" style="width:auto;padding:8px 18px" onclick="analyseContract()"><i class="ti ti-sparkles" aria-hidden="true"></i> Analizar</button>
+          </div>
+        </div>
+        <div class="ai-box" id="contract-result">
+          <div class="ai-badge">Análisis COMPLAI</div>
+          <div id="contract-output"></div>
+        </div>
+      </div>
+
+      <!-- TAX -->
+      <div class="tool-panel" id="panel-tax">
+        <div class="card">
+          <div class="sect">IRPF trimestral + simulación Renta anual</div>
+          <div class="field-group">
+            <div class="field">
+              <label class="lbl">Ingresos acumulados este año (€)</label>
+              <input class="inp" type="number" id="t-ingresos" placeholder="30.000">
+              <div class="hint">Total facturado desde enero hasta ahora</div>
+            </div>
+            <div class="field">
+              <label class="lbl">Gastos deducibles acumulados (€)</label>
+              <input class="inp" type="number" id="t-gastos" placeholder="8.000">
+              <div class="hint">Cuotas RETA, gestoría, material, etc.</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label class="lbl">Retenciones IRPF ya soportadas (€)</label>
+              <input class="inp" type="number" id="t-retenciones" placeholder="3.000">
+              <div class="hint">El 15% que te retienen tus clientes empresa</div>
+            </div>
+            <div class="field">
+              <label class="lbl">Pagos modelo 130 ya realizados (€)</label>
+              <input class="inp" type="number" id="t-pagos130" placeholder="0">
+              <div class="hint">Lo pagado en trimestres anteriores este año</div>
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label class="lbl">Trimestre actual</label>
+              <select class="inp" id="t-trimestre">
+                <option value="1">1T (enero-marzo)</option>
+                <option value="2" selected>2T (enero-junio)</option>
+                <option value="3">3T (enero-septiembre)</option>
+                <option value="4">4T (enero-diciembre)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="lbl">Situación familiar</label>
+              <select class="inp" id="t-familia">
+                <option value="single">Soltero/a sin hijos</option>
+                <option value="married">Casado/a (cónyuge no trabaja)</option>
+                <option value="kids1">Con 1 hijo/a</option>
+                <option value="kids2">Con 2 o más hijos/as</option>
+              </select>
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcTax()"><i class="ti ti-calculator" aria-hidden="true"></i> Calcular IRPF y simular Renta</button>
+        </div>
+        <div class="result-box" id="tax-result">
+          <div class="sect" style="margin-bottom:10px">Modelo 130 — pago este trimestre</div>
+          <div class="rrows">
+            <div class="rrow"><span class="rl">Rendimiento neto acumulado</span><span class="rv blue" id="tr-neto">—</span></div>
+            <div class="rrow"><span class="rl">20% sobre rendimiento neto</span><span class="rv" id="tr-20">—</span></div>
+            <div class="rrow"><span class="rl">Menos retenciones soportadas</span><span class="rv green" id="tr-ret">—</span></div>
+            <div class="rrow"><span class="rl">Menos pagos 130 anteriores</span><span class="rv green" id="tr-prev">—</span></div>
+            <div class="divider"></div>
+            <div class="rrow"><span class="rl"><strong>A pagar modelo 130</strong></span><span class="rv red" id="tr-pay">—</span></div>
+          </div>
+          <div style="margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid var(--border)">
+            <div class="sect" style="margin-bottom:8px">Simulación Renta anual</div>
+            <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Estimación basada en tus datos anualizados con tramos IRPF 2025.</p>
+            <div class="tranche-bar" id="tranche-bar"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;color:var(--text-secondary)">
+              <span style="color:#3B6D11">■ 19% hasta 12.450€</span>
+              <span style="color:#185FA5">■ 24% hasta 20.200€</span>
+              <span style="color:#EF9F27">■ 30% hasta 35.200€</span>
+              <span style="color:#E24B4A">■ 37% hasta 60.000€</span>
+              <span style="color:#791F1F">■ 45%+ más de 60.000€</span>
+            </div>
+            <div class="rrows">
+              <div class="rrow"><span class="rl">Base imponible estimada anual</span><span class="rv" id="ar-base">—</span></div>
+              <div class="rrow"><span class="rl">Mínimo personal y familiar</span><span class="rv green" id="ar-minimo">—</span></div>
+              <div class="rrow"><span class="rl">IRPF bruto anual estimado</span><span class="rv" id="ar-irpf">—</span></div>
+              <div class="rrow"><span class="rl">Menos retenciones anuales</span><span class="rv green" id="ar-ret">—</span></div>
+              <div class="rrow"><span class="rl">Menos pagos modelo 130 anuales</span><span class="rv green" id="ar-130">—</span></div>
+              <div class="divider"></div>
+              <div class="rrow"><span class="rl"><strong>Resultado Renta estimado</strong></span><span class="rv" id="ar-result">—</span></div>
+            </div>
+            <div id="tax-alert"></div>
+          </div>
+          <p class="tax-disclaimer">Estimación orientativa. No incluye deducciones autonómicas ni situaciones especiales. Consulta con tu gestor para el cálculo exacto.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>COMPLAI · El conocimiento legal no debería ser un privilegio</p>
+      <p style="margin-top:5px">Plan ITSS 2025-2027 · Tribunal Supremo · Directiva UE 2024/2831</p>
+      <p style="margin-top:5px">Construido por <a href="https://linkedin.com/in/robert-wernerowski-20104636" target="_blank" rel="noopener">Robert Wernerowski</a> · <a href="https://github.com/robertwernerowski/complai" target="_blank" rel="noopener">GitHub</a></p>
+      <p style="margin-top:8px;font-size:11px;color:var(--text-tertiary)">COMPLAI proporciona información general. No sustituye el asesoramiento legal personalizado de un abogado laboralista.</p>
+    </footer>
+
+  </div>
+
+  <script src="src/data.js"></script>
+  <script src="src/inspector.js"></script>
+  <script src="src/tools.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
