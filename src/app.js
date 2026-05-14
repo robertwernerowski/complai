@@ -3,5 +3,7 @@
 // All data is in data.js
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('COMPLAI v2.0 loaded');
+  console.log('COMPLAI v3.0 loaded');
+  // Init document generator fields
+  if (typeof updateDocTemplate === 'function') updateDocTemplate();
 });

@@ -38,11 +38,11 @@
 
   <!-- MAIN NAV -->
   <nav class="main-nav">
-    <button class="nav-btn active" onclick="showSection('inspector')">
+    <button class="nav-btn active" data-section="inspector" onclick="showSection('inspector')">
       <i class="ti ti-shield-check" aria-hidden="true"></i>
       <span id="txt-nav-inspector">¿Soy falso autónomo?</span>
     </button>
-    <button class="nav-btn" onclick="showSection('tools')">
+    <button class="nav-btn" data-section="tools" onclick="showSection('tools')">
       <i class="ti ti-tools" aria-hidden="true"></i>
       <span id="txt-nav-tools">Herramientas</span>
     </button>
@@ -108,6 +108,10 @@
       <div class="tab active" onclick="showTab('paro', this)"><i class="ti ti-umbrella" aria-hidden="true"></i> <span id="txt-tab-paro">Cese de actividad</span></div>
       <div class="tab" onclick="showTab('contract', this)"><i class="ti ti-file-text" aria-hidden="true"></i> <span id="txt-tab-contract">Analizador de contrato</span></div>
       <div class="tab" onclick="showTab('tax', this)"><i class="ti ti-receipt-tax" aria-hidden="true"></i> <span id="txt-tab-tax">IRPF + Renta</span></div>
+      <div class="tab" onclick="showTab('docs', this)"><i class="ti ti-file-download" aria-hidden="true"></i> <span id="txt-tab-docs">Documentos</span></div>
+      <div class="tab" onclick="showTab('calendar', this); renderCalendar();"><i class="ti ti-calendar" aria-hidden="true"></i> <span id="txt-tab-calendar">Calendario</span></div>
+      <div class="tab" onclick="showTab('boe', this)"><i class="ti ti-news" aria-hidden="true"></i> <span>BOE</span></div>
+      <div class="tab" onclick="showTab('fundae', this)"><i class="ti ti-school" aria-hidden="true"></i> <span>FUNDAE</span></div>
     </div>
 
     <!-- PARO -->
@@ -191,6 +195,139 @@
       <div class="ai-box" id="contract-result">
         <div class="ai-badge" id="txt-contract-badge">Análisis COMPLAI</div>
         <div id="contract-output"></div>
+      </div>
+    </div>
+
+    <!-- DOCS -->
+    <div class="tool-panel" id="panel-docs">
+      <div class="card">
+        <div class="sect" id="txt-docs-title">Genera documentos para proteger tu autonomía</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6" id="txt-docs-desc">Plantillas profesionales para dejar constancia escrita de tu independencia como autónomo. Archívalas — son tu mejor defensa ante una inspección.</p>
+        <div style="display:flex;gap:8px;margin-bottom:1.25rem">
+          <button class="doc-toggle-btn active" onclick="showDocSubPanel('email')"><i class="ti ti-mail"></i> <span id="txt-docs-email-btn">Plantillas de email</span></button>
+          <button class="doc-toggle-btn" onclick="showDocSubPanel('checklist')"><i class="ti ti-checklist"></i> <span id="txt-docs-check-btn">Checklist</span></button>
+        </div>
+        <!-- EMAIL TEMPLATES -->
+        <div class="doc-sub-panel show" id="doc-sub-email">
+          <div class="field" style="margin-bottom:1rem">
+            <label class="lbl" id="txt-docs-select-lbl">Tipo de documento</label>
+            <select class="inp" id="doc-template-select" onchange="updateDocTemplate()">
+              <option value="rechazo" data-es="Rechazo de encargo" data-en="Reject assignment">Rechazo de encargo</option>
+              <option value="tarifa" data-es="Confirmación de tarifa variable" data-en="Variable rate confirmation">Confirmación de tarifa variable</option>
+              <option value="medios" data-es="Confirmación de medios propios" data-en="Own equipment confirmation">Confirmación de medios propios</option>
+              <option value="sustitucion" data-es="Acuerdo de sustitución" data-en="Substitution agreement">Acuerdo de sustitución</option>
+            </select>
+          </div>
+          <div id="doc-fields" class="field-group" style="flex-direction:column"></div>
+          <button class="calc-btn" onclick="generateDoc()" style="margin-top:.75rem"><i class="ti ti-file-plus" aria-hidden="true"></i> <span id="txt-docs-gen-btn">Generar documento</span></button>
+          <div class="doc-output" id="doc-output">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-size:12px;font-weight:500;color:var(--text-secondary)" id="txt-docs-ready">Documento generado — listo para copiar</span>
+              <button class="copy-btn" id="copy-doc-btn" onclick="copyDoc()" id="txt-docs-copy-btn">Copiar</button>
+            </div>
+            <textarea class="textarea-box" id="doc-textarea" style="min-height:200px;font-family:monospace;font-size:12px" readonly></textarea>
+          </div>
+        </div>
+        <!-- CHECKLIST -->
+        <div class="doc-sub-panel" id="doc-sub-checklist">
+          <div class="sect" id="txt-docs-checklist-title">Checklist de autonomía — 10 puntos clave</div>
+          <p style="font-size:12px;color:var(--text-secondary);margin-bottom:1rem" id="txt-docs-checklist-desc">Mantén estos elementos documentados. Si llegas a una inspección, son tu mejor defensa.</p>
+          <div class="autonomy-checklist">
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-1">Facturas con importes variables mes a mes</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-2">Múltiples clientes activos (mínimo 2-3)</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-3">Contrato de servicios sin cláusulas de exclusividad</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-4">Correos de rechazo de encargos archivados</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-5">Uso de medios propios (ordenador, móvil, software)</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-6">Sin asistencia obligatoria a reuniones de empresa</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-7">Horario decidido libremente por el profesional</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-8">Clientes propios además del cliente principal</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-9">Seguro de responsabilidad civil propio</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span id="txt-chk-10">Alta en el IAE en el epígrafe correcto</span></div>
+          </div>
+          <button class="calc-btn" onclick="printChecklist()" style="margin-top:1rem"><i class="ti ti-printer" aria-hidden="true"></i> <span id="txt-docs-print-btn">Imprimir checklist</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="tool-panel" id="panel-calendar">
+      <div class="card">
+        <div class="sect" id="txt-cal-title">Calendario fiscal del autónomo 2025-2026</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6" id="txt-cal-desc">Fechas límite de presentación de modelos ante la AEAT. El estado se calcula automáticamente según la fecha de hoy.</p>
+        <div class="deadline-list" id="aeat-deadlines"><div style="font-size:13px;color:var(--text-tertiary);text-align:center;padding:2rem">Cargando...</div></div>
+        <div class="warn-box" style="margin-top:1rem" id="txt-cal-warn"><i class="ti ti-info-circle"></i> Las fechas pueden variar ligeramente cada año. Confirma siempre en <a href="https://www.aeat.es" target="_blank" rel="noopener" style="color:var(--amber-dark)">aeat.es</a>.</div>
+      </div>
+    </div>
+
+    <!-- BOE -->
+    <div class="tool-panel" id="panel-boe">
+      <div class="card">
+        <div class="sect">BOE — Cambios legales relevantes para autónomos</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6">Publicaciones recientes del Boletín Oficial del Estado que afectan a autónomos y empresas que trabajan con ellos.</p>
+        <div class="boe-card">
+          <div class="boe-meta"><span class="boe-date">Dic 2024</span><span class="boe-ref">Directiva UE 2024/2831</span></div>
+          <div class="boe-title">Directiva de trabajo en plataformas — Presunción de laboralidad</div>
+          <div class="boe-summary">Establece una presunción de relación laboral para trabajadores de plataformas digitales. España debe transponerla antes de diciembre de 2026. Afecta a riders, conductores VTC, y otros trabajadores de plataformas.</div>
+          <a class="boe-link" href="https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32024L2831" target="_blank" rel="noopener">Ver publicación <i class="ti ti-external-link"></i></a>
+        </div>
+        <div class="boe-card">
+          <div class="boe-meta"><span class="boe-date">2025</span><span class="boe-ref">Plan ITSS 2025-2027</span></div>
+          <div class="boe-title">Plan Estratégico de la Inspección de Trabajo y SS 2025-2027</div>
+          <div class="boe-summary">Refuerza el cruce automático de datos entre AEAT y Seguridad Social para detectar falsos autónomos. Prioridad especial en sectores de logística, construcción, tecnología y servicios profesionales.</div>
+          <a class="boe-link" href="https://www.mites.gob.es/itss/web/Atencion_al_Ciudadano/INFORMACION_INSTITUCIONAL/Plan_estrategico/index.html" target="_blank" rel="noopener">Ver plan <i class="ti ti-external-link"></i></a>
+        </div>
+        <div class="boe-card">
+          <div class="boe-meta"><span class="boe-date">2023</span><span class="boe-ref">Ley 12/2022</span></div>
+          <div class="boe-title">Reforma del sistema de cotización por ingresos reales (RETA)</div>
+          <div class="boe-summary">Los autónomos cotizan desde 2023 en función de sus ingresos reales, con 15 tramos. El sistema se aplicará plenamente en 2025. Permite regularizar la base de cotización 6 veces al año.</div>
+          <a class="boe-link" href="https://www.boe.es/buscar/act.php?id=BOE-A-2022-11147" target="_blank" rel="noopener">Ver normativa <i class="ti ti-external-link"></i></a>
+        </div>
+        <div class="boe-card">
+          <div class="boe-meta"><span class="boe-date">2021</span><span class="boe-ref">Real Decreto-ley 9/2021</span></div>
+          <div class="boe-title">Ley Rider — Presunción de laboralidad en reparto</div>
+          <div class="boe-summary">Establece presunción de relación laboral para repartidores de plataformas digitales. Pionero en Europa, ha servido de base para la Directiva UE 2024/2831. Sentencias del TS confirman su aplicación.</div>
+          <a class="boe-link" href="https://www.boe.es/buscar/act.php?id=BOE-A-2021-7840" target="_blank" rel="noopener">Ver normativa <i class="ti ti-external-link"></i></a>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <div class="sect" id="txt-boe-search-title">Busca cambios legales con IA</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:.75rem" id="txt-boe-search-desc">Describe tu duda legal y la IA buscará en su base de conocimiento normativo hasta 2025.</p>
+        <div style="display:flex;gap:8px">
+          <input class="inp" style="flex:1" id="boe-search-input" type="text" placeholder="Ej: cambios en cotización autónomos 2025" id="txt-boe-search-placeholder">
+          <button class="calc-btn" style="width:auto;padding:8px 16px;margin-top:0" onclick="searchBOE()"><i class="ti ti-sparkles"></i></button>
+        </div>
+        <div class="ai-box" id="boe-ai-result"><div class="ai-badge">Análisis COMPLAI</div><div id="boe-ai-output"></div></div>
+      </div>
+    </div>
+
+    <!-- FUNDAE -->
+    <div class="tool-panel" id="panel-fundae">
+      <div class="card">
+        <div class="sect" id="txt-fundae-title">FUNDAE — Crédito de formación para autónomos</div>
+        <div class="info-box" style="margin-bottom:1rem" id="txt-fundae-info"><i class="ti ti-info-circle"></i> <strong>¿Qué es FUNDAE?</strong> La Fundación Estatal para la Formación en el Empleo gestiona el crédito de formación que empresas y autónomos obtienen por sus cotizaciones a la Seguridad Social. Los autónomos del RETA tienen derecho a <strong>94€/año</strong> (2025) para formación en centros autorizados.</div>
+        <div class="field-group">
+          <div class="field">
+            <label class="lbl" id="txt-fundae-size-lbl">Tamaño de tu empresa / actividad</label>
+            <select class="inp" id="fundae-size">
+              <option value="solo" data-es="Solo autónomo (sin empleados)" data-en="Solo self-employed (no employees)">Solo autónomo (sin empleados)</option>
+              <option value="1-5" data-es="1–5 empleados" data-en="1–5 employees">1–5 empleados</option>
+              <option value="6-9" data-es="6–9 empleados" data-en="6–9 employees">6–9 empleados</option>
+              <option value="10-49" data-es="10–49 empleados" data-en="10–49 employees">10–49 empleados</option>
+              <option value="50+" data-es="50 o más empleados" data-en="50+ employees">50 o más empleados</option>
+            </select>
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcFundae()"><i class="ti ti-calculator" aria-hidden="true"></i> <span id="txt-fundae-btn">Calcular crédito FUNDAE</span></button>
+        <div id="fundae-result" class="result-box" style="display:none;margin-top:1rem"></div>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <div class="sect" id="txt-fundae-steps-title">¿Cómo solicitar la formación bonificada?</div>
+        <div class="acts">
+          <div class="act"><i class="ti ti-circle-number-1" style="color:var(--blue);flex-shrink:0;margin-top:2px"></i> <span id="txt-fundae-step1">Elige un curso en un centro de formación autorizado por FUNDAE (busca en fundae.es).</span></div>
+          <div class="act"><i class="ti ti-circle-number-2" style="color:var(--blue);flex-shrink:0;margin-top:2px"></i> <span id="txt-fundae-step2">El centro gestiona la bonificación directamente con la TGSS — tú pagas menos o nada.</span></div>
+          <div class="act"><i class="ti ti-circle-number-3" style="color:var(--blue);flex-shrink:0;margin-top:2px"></i> <span id="txt-fundae-step3">Completa el curso y conserva el certificado. El crédito no consumido no se acumula al año siguiente.</span></div>
+        </div>
+        <a href="https://www.fundae.es" target="_blank" rel="noopener" class="boe-link" style="display:inline-flex;align-items:center;gap:4px;margin-top:.5rem" id="txt-fundae-link">Buscar cursos en fundae.es <i class="ti ti-external-link"></i></a>
       </div>
     </div>
 
@@ -288,6 +425,18 @@
     <p style="margin-top:8px;font-size:11px;color:var(--text-tertiary)" id="txt-disclaimer">COMPLAI proporciona información general. No sustituye el asesoramiento legal personalizado de un abogado laboralista.</p>
   </footer>
 </div>
+
+<!-- Mobile bottom nav -->
+<nav class="mobile-nav" aria-label="Navegación principal">
+  <button class="mobile-nav-btn active" data-section="inspector" onclick="showSection('inspector')">
+    <i class="ti ti-shield-check" aria-hidden="true"></i>
+    <span id="txt-mob-inspector">Inspector</span>
+  </button>
+  <button class="mobile-nav-btn" data-section="tools" onclick="showSection('tools')">
+    <i class="ti ti-tools" aria-hidden="true"></i>
+    <span id="txt-mob-tools">Herramientas</span>
+  </button>
+</nav>
 
 <script src="src/data.js"></script>
 <script src="src/inspector.js"></script>
