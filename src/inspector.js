@@ -13,7 +13,7 @@ function buildQuiz(mode) {
 
   steps.forEach(function(step, i) {
     html += '<div class="step' + (i === 0 ? ' active' : '') + '" id="' + mode + 's' + i + '">';
-    html += '<div class="slbl">Señal ' + (i+1) + ' de ' + total + '</div>';
+    html += '<div class="quiz-step-counter"><span class="quiz-step-dot"></span> Pregunta ' + (i+1) + ' de ' + total + '</div>';
     html += '<div class="stitle">' + step.title + '</div>';
     html += '<div class="sdesc">' + step.desc + '</div>';
     if (step.note) html += '<div class="inote"><i class="ti ti-eye" aria-hidden="true"></i> ' + step.note + '</div>';
@@ -30,7 +30,7 @@ function buildQuiz(mode) {
   });
 
   html += '<div class="step" id="' + mode + 's' + steps.length + '">';
-  html += '<div class="slbl">Análisis IA — Señal ' + total + ' de ' + total + '</div>';
+  html += '<div class="quiz-step-counter"><span class="quiz-step-dot ai-dot"></span> Análisis IA &mdash; ' + total + ' de ' + total + '</div>';
   html += '<div class="stitle">¿Hay algo en tu situación que te parece sospechoso?</div>';
   html += '<div class="sdesc">Describe con tus palabras ' + (isW ? 'cómo funciona tu relación con la empresa' : 'cualquier aspecto de tu relación con los autónomos') + '. La IA lo analizará contra los criterios reales de la Inspección de Trabajo española 2025.</div>';
   html += '<div class="open-box"><textarea id="' + mode + 'txt" placeholder="' + (isW ? 'Ejemplo: me pagan 1.800€ fijos cada mes, tengo que estar disponible de 9 a 18h, asisto a las reuniones de equipo...' : 'Ejemplo: les pedimos que usen nuestro sistema de gestión, asisten a reuniones mensuales de equipo...') + '" oninput="' + mode + 'cc();' + mode + 'chk()" maxlength="800"></textarea><div class="char-count"><span id="' + mode + 'cn">0</span>/800</div></div>';
@@ -140,6 +140,8 @@ function showR() {
   var total = scores.slice(0,isW?WN-1:CN-1).reduce(function(a,b){return a+b;},0);
   var mx = isW?115:105, pct=Math.min(100,Math.round((total/mx)*100));
   document.getElementById('mth').style.left = 'calc('+pct+'% - 8px)';
+  var pctEl = document.getElementById('result-pct');
+  if (pctEl) pctEl.textContent = pct + '%';
 
   var ci=document.getElementById('scirc'), sv=document.getElementById('svv'), ss=document.getElementById('sss'), slb=document.getElementById('slb');
   slb.textContent = isW ? 'Tu nivel de riesgo de ser falso autónomo' : 'Tu nivel de riesgo ante una inspección';

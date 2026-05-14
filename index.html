@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COMPLAI — Protección legal para autónomos en España</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
 <meta name="description" content="¿Eres un falso autónomo? ¿Tu empresa está en riesgo de inspección? COMPLAI analiza tu situación, calcula tu cese de actividad, analiza tu contrato y calcula tu IRPF.">
 <meta property="og:title" content="COMPLAI — Protección legal para autónomos">
 <meta property="og:description" content="El conocimiento legal no debería ser un privilegio. COMPLAI te ayuda a entender tus derechos y protegerte ante una inspección.">
@@ -19,7 +20,7 @@
 
   <header class="header">
     <div class="header-top">
-      <div>
+      <div class="logo-block">
         <div class="logo">COMPL<span>AI</span></div>
         <div class="tagline" id="txt-tagline">Protección legal para autónomos · España 2025-2026</div>
       </div>
@@ -29,10 +30,10 @@
       </button>
     </div>
     <div class="badges">
-      <span class="badge badge-b">Plan ITSS 2025-2027</span>
-      <span class="badge badge-g">Tribunal Supremo</span>
-      <span class="badge badge-b">Directiva UE 2024/2831</span>
-      <span class="badge badge-r" id="txt-badge-cases">+30.000 casos en 2024</span>
+      <span class="badge badge-b"><i class="ti ti-shield"></i> Plan ITSS 2025-2027</span>
+      <span class="badge badge-g"><i class="ti ti-gavel"></i> Tribunal Supremo</span>
+      <span class="badge badge-b"><i class="ti ti-building-community"></i> Directiva UE 2024/2831</span>
+      <span class="badge badge-r" id="txt-badge-cases"><i class="ti ti-chart-bar"></i> +30.000 casos en 2024</span>
     </div>
   </header>
 
@@ -51,19 +52,44 @@
   <!-- INSPECTOR SECTION -->
   <section id="section-inspector" class="section show">
     <div id="mscreen">
-      <p class="intro-text" id="txt-intro">En 2024 se detectaron más de 30.000 falsos autónomos en España. El Plan ITSS 2025-2027 refuerza el cruce automático de datos AEAT-Seguridad Social. COMPLAI te ayuda desde los dos lados.</p>
+      <div class="hero">
+        <div class="hero-headline" id="txt-intro">¿Eres un <span class="hero-hl">falso autónomo</span>?</div>
+        <div class="hero-sub">En 2024 se detectaron más de 30.000 casos en España. El Plan ITSS 2025-2027 refuerza el cruce automático de datos AEAT-Seguridad Social. Descúbrelo en 2 minutos.</div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">30.000+</div>
+            <div class="hero-stat-lbl">casos en 2024</div>
+          </div>
+          <div class="hero-stat-div"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">2 min</div>
+            <div class="hero-stat-lbl">para saberlo</div>
+          </div>
+          <div class="hero-stat-div"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-lbl">gratuito</div>
+          </div>
+        </div>
+      </div>
       <div class="mode-grid">
-        <div class="mc worker" onclick="startM('w')">
-          <div class="mc-icon"><i class="ti ti-user" aria-hidden="true"></i></div>
+        <div class="mc worker" onclick="startM('w')" role="button" tabindex="0">
+          <div class="mc-icon-wrap worker-icon-wrap"><i class="ti ti-user" aria-hidden="true"></i></div>
           <div class="mc-title" id="txt-worker-title">La empresa me trata como empleado</div>
           <div class="mc-desc" id="txt-worker-desc">Creo que soy un falso autónomo. Quiero saber si tengo razón y qué derechos puedo reclamar.</div>
-          <span class="mc-tag worker-tag" id="txt-worker-tag">Detecta tu situación</span>
+          <div class="mc-footer">
+            <span class="mc-tag worker-tag" id="txt-worker-tag">Detecta tu situación</span>
+            <i class="ti ti-arrow-right mc-arrow worker-arrow"></i>
+          </div>
         </div>
-        <div class="mc company" onclick="startM('c')">
-          <div class="mc-icon"><i class="ti ti-building" aria-hidden="true"></i></div>
+        <div class="mc company" onclick="startM('c')" role="button" tabindex="0">
+          <div class="mc-icon-wrap company-icon-wrap"><i class="ti ti-building" aria-hidden="true"></i></div>
           <div class="mc-title" id="txt-company-title">Trabajo con autónomos y quiero protegerme</div>
           <div class="mc-desc" id="txt-company-desc">Quiero saber si mi empresa está en riesgo de inspección y cómo reducirlo.</div>
-          <span class="mc-tag company-tag" id="txt-company-tag">Prevención de inspección</span>
+          <div class="mc-footer">
+            <span class="mc-tag company-tag" id="txt-company-tag">Prevención de inspección</span>
+            <i class="ti ti-arrow-right mc-arrow company-arrow"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -76,13 +102,14 @@
     <!-- Result -->
     <div class="result" id="res">
       <div class="scard">
-        <div class="shdr">
+        <div class="result-score-row">
           <div class="scirc" id="scirc"></div>
-          <div>
+          <div class="result-score-text">
             <div class="slb" id="slb"></div>
             <div class="svv" id="svv"></div>
             <div class="sss" id="sss"></div>
           </div>
+          <div class="result-pct" id="result-pct"></div>
         </div>
         <div class="mtr"><div class="mth" id="mth"></div></div>
         <div class="mlbl">
@@ -104,6 +131,10 @@
 
   <!-- TOOLS SECTION -->
   <section id="section-tools" class="section">
+    <div class="tools-header">
+      <div class="tools-title" id="txt-tools-title">Herramientas para autónomos</div>
+      <div class="tools-sub" id="txt-tools-sub">Calculadoras, analizadores y documentos para proteger tu situación</div>
+    </div>
     <div class="tabs">
       <div class="tab active" onclick="showTab('paro', this)"><i class="ti ti-umbrella" aria-hidden="true"></i> <span id="txt-tab-paro">Cese de actividad</span></div>
       <div class="tab" onclick="showTab('contract', this)"><i class="ti ti-file-text" aria-hidden="true"></i> <span id="txt-tab-contract">Analizador de contrato</span></div>
@@ -450,7 +481,7 @@ var UI_STRINGS = {
     'badge-cases': '+30.000 casos en 2024',
     'nav-inspector': '¿Soy falso autónomo?',
     'nav-tools': 'Herramientas',
-    intro: 'En 2024 se detectaron más de 30.000 falsos autónomos en España. El Plan ITSS 2025-2027 refuerza el cruce automático de datos AEAT-Seguridad Social. COMPLAI te ayuda desde los dos lados.',
+    intro: '¿Eres un <span class="hero-hl">falso autónomo</span>?',
     'worker-title': 'La empresa me trata como empleado',
     'worker-desc': 'Creo que soy un falso autónomo. Quiero saber si tengo razón y qué derechos puedo reclamar.',
     'worker-tag': 'Detecta tu situación',
@@ -461,6 +492,8 @@ var UI_STRINGS = {
     'findings-hdr': 'Lo que detectaría un inspector',
     'actions-hdr': 'Acciones recomendadas',
     restart: 'Hacer el análisis de nuevo',
+    'tools-title': 'Herramientas para autónomos',
+    'tools-sub': 'Calculadoras, analizadores y documentos para proteger tu situación',
     'tab-paro': 'Cese de actividad',
     'tab-contract': 'Analizador de contrato',
     'tab-tax': 'IRPF + Renta',
@@ -512,7 +545,7 @@ var UI_STRINGS = {
     'badge-cases': '+30,000 cases in 2024',
     'nav-inspector': 'Am I bogus self-employed?',
     'nav-tools': 'Tools',
-    intro: 'In 2024, over 30,000 bogus self-employed workers were detected in Spain. The ITSS Strategic Plan 2025-2027 strengthens automatic cross-checking of tax and social security data. COMPLAI helps from both sides.',
+    intro: 'Are you <span class="hero-hl">bogus self-employed</span>?',
     'worker-title': 'The company treats me like an employee',
     'worker-desc': 'I think I may be bogus self-employed. I want to know if I\'m right and what rights I can claim.',
     'worker-tag': 'Detect your situation',
@@ -523,6 +556,8 @@ var UI_STRINGS = {
     'findings-hdr': 'What an inspector would find',
     'actions-hdr': 'Recommended actions',
     restart: 'Run the analysis again',
+    'tools-title': 'Tools for the self-employed',
+    'tools-sub': 'Calculators, analysers and documents to protect your situation',
     'tab-paro': 'Cessation benefit',
     'tab-contract': 'Contract analyser',
     'tab-tax': 'Income tax + Annual return',
