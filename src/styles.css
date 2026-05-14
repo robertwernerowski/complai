@@ -227,3 +227,60 @@ select.inp { cursor: pointer; }
 .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); text-align: center; font-size: 12px; color: var(--text-secondary); }
 .footer a { color: var(--blue); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
+
+/* Header layout with lang switcher */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.lang-btn {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border-strong);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all .15s;
+  margin-top: 4px;
+}
+.lang-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* Mobile: tighter container padding */
+@media (max-width: 480px) {
+  .container { padding: 1rem 0.85rem 3rem; }
+  .stitle { font-size: 15px; }
+  .opt { padding: 10px 12px; }
+  .ot { font-size: 12px; }
+  .card { padding: 1rem; }
+  .tabs { gap: 5px; }
+  .tab { font-size: 12px; padding: 6px 10px; }
+  .result-main { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .result-circ { width: 52px; height: 52px; }
+  .result-circ .big { font-size: 15px; }
+  .shdr { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .scirc { width: 56px; height: 56px; font-size: 18px; }
+  .nav-row { gap: 8px; }
+  .nav-row button { font-size: 12px; padding: 8px 12px; }
+  .rrow { font-size: 12px; }
+  .askbtn, .rstbtn { font-size: 13px; }
+  .main-nav { gap: 6px; }
+  .nav-btn { font-size: 12px; padding: 9px 6px; gap: 5px; }
+}
+
+/* Prevent input zoom on iOS (font-size must be >= 16px on focus) */
+@media (max-width: 480px) {
+  .inp, .textarea-box, .open-box textarea {
+    font-size: 16px !important;
+  }
+}
